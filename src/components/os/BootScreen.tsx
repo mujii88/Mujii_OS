@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 const asciiArt = [
   "............................................................",
@@ -50,7 +50,7 @@ const bootLines = [
   "[  OK  ] User Profile Authenticated.",
   "Injecting personality subroutines...",
   "Starting OS Environment...",
-  "Boot sequence complete. Welcome to Mujii OS.",
+  "Boot sequence complete. Opening Secure Terminal.",
 ];
 
 interface BootScreenProps {
@@ -58,76 +58,93 @@ interface BootScreenProps {
 }
 
 export default function BootScreen({ onComplete }: BootScreenProps) {
-  const [displayedAscii, setDisplayedAscii] = useState<string[]>([]);
-  const [displayedLines, setDisplayedLines] = useState<string[]>([]);
-  const [isFadingOut, setIsFadingOut] = useState(false);
+  const [showLogs, setShowLogs] = useState(false);
 
   useEffect(() => {
-    let asciiIndex = 0;
-    
-    // Animate ASCII art fast
-    const asciiInterval = setInterval(() => {
-      if (asciiIndex < asciiArt.length) {
-        setDisplayedAscii(prev => [...prev, asciiArt[asciiIndex]]);
-        asciiIndex++;
-      } else {
-        clearInterval(asciiInterval);
-        
-        // Start text boot sequence after ASCII finishes
-        let textIndex = 0;
-        const textInterval = setInterval(() => {
-          if (textIndex < bootLines.length) {
-            setDisplayedLines(prev => [...prev, bootLines[textIndex]]);
-            textIndex++;
-          } else {
-            clearInterval(textInterval);
-            setTimeout(() => {
-              setIsFadingOut(true);
-              setTimeout(onComplete, 1200); // Wait for fade out
-            }, 800);
-          }
-        }, 120); // ms per text line
-      }
-    }, 25); // very fast ms per ascii line
+    const timer1 = setTimeout(() => setShowLogs(true), 1200);
+    const timer2 = setTimeout(() => {
+      onComplete();
+    }, 4500);
 
     return () => {
-      clearInterval(asciiInterval);
+      clearTimeout(timer1);
+      clearTimeout(timer2);
     };
   }, [onComplete]);
 
-  return (
-    <AnimatePresence>
-      {!isFadingOut && (
-        <motion.div
-          className="fixed inset-0 bg-black text-pink-400 font-mono text-xs sm:text-sm p-4 sm:p-8 overflow-hidden z-50 pointer-events-none flex flex-col"
-          style={{ textShadow: '0 0 10px rgba(236,72,153,0.8)' }}
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)", transition: { duration: 1.2, ease: "easeInOut" } }}
-        >
-          {/* Scanline overlay for cinematic effect */}
-          <div className="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(rgba(255,255,255,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] z-50" />
-          
-          <div className="flex-1 flex flex-col justify-end whitespace-pre relative z-10">
-            {/* ASCII Art block */}
-            <div className="mb-6 opacity-90 leading-[1.1] text-[6px] sm:text-[10px] md:text-xs">
-              {displayedAscii.map((line, i) => (
-                <div key={i}>{line}</div>
-              ))}
-            </div>
+  const containerVariants = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.02 }
+    }
+  };
 
-            {/* Boot log block */}
-            <div className="space-y-1">
-              {displayedLines.map((line, i) => (
-                <div key={i}>{line}</div>
+  const lineVariants = {
+    hidden: { opacity: 0, filter: 'blur(5px)', y: -2 },
+    visible: { opacity: 0.9, filter: 'blur(0px)', y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+  };
+
+  const logContainerVariants = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 }
+    }
+  };
+
+  const logLineVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.2, ease: "easeOut" } }
+  };
+
+  return (
+    <motion.div
+      className="fixed inset-0 bg-black text-pink-400 font-mono text-xs sm:text-sm p-4 sm:p-8 overflow-hidden z-50 pointer-events-none flex flex-col"
+      style={{ textShadow: '0 0 10px rgba(236,72,153,0.8)' }}
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0, filter: "blur(20px)", transition: { duration: 0.8, ease: "easeInOut" } }}
+    >
+      {/* Scanline overlay for cinematic effect */}
+      <div className="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(rgba(255,255,255,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] z-50" />
+      
+      <div className="flex-1 flex flex-col justify-end whitespace-pre relative z-10">
+        {/* ASCII Art block */}
+        <motion.div 
+          className="mb-6 leading-[1.1] text-[6px] sm:text-[10px] md:text-xs"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {asciiArt.map((line, i) => (
+            <motion.div key={i} variants={lineVariants}>{line}</motion.div>
+          ))}
+        </motion.div>
+
+        {/* Boot log block */}
+        <div className="space-y-1 h-48">
+          {showLogs && (
+            <motion.div 
+              variants={logContainerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {bootLines.map((line, i) => (
+                <motion.div key={i} variants={logLineVariants}>{line}</motion.div>
               ))}
               {/* Blinking cursor */}
-              {displayedLines.length < bootLines.length && (
-                <div className="animate-pulse font-bold text-pink-300">_</div>
-              )}
-            </div>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{ repeat: Infinity, duration: 0.8 }}
+                className="font-bold text-pink-300 mt-1"
+              >
+                _
+              </motion.div>
+            </motion.div>
+          )}
+        </div>
+      </div>
+    </motion.div>
   );
 }
