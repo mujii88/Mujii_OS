@@ -52,7 +52,7 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
         </h2>
 
         <p className="text-sm text-pink-200/80 mb-8 font-medium text-center px-4">
-          Enter password to see Mujtaba's Portfolio
+          Enter password to see Mujtaba&apos;s Portfolio
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col items-center w-full max-w-xs">
