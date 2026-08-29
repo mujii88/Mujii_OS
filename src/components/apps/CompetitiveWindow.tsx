@@ -11,7 +11,7 @@ const profiles = [
     shadow: 'shadow-orange-500/40',
     icon: (
       <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.543l5.096 5.107c.502.502 1.272.502 1.774 0l.965-.965a1.254 1.254 0 0 0 0-1.774l-5.096-5.106a2.548 2.548 0 0 1 0-3.604l3.854-4.125 5.406-5.788c.502-.502.502-1.272 0-1.774l-.966-.965A1.374 1.374 0 0 0 13.483 0zm-2.866 12.815a1.254 1.254 0 0 0 0 1.774l2.548 2.548c.502.502 1.272.502 1.774 0l.965-.965a1.254 1.254 0 0 0 0-1.774l-2.548-2.548a1.254 1.254 0 0 0-1.774 0l-.965.965zM17.433 9.467a1.254 1.254 0 0 0 0 1.774l2.548 2.548c.502.502 1.272.502 1.774 0l.965-.965a1.254 1.254 0 0 0 0-1.774l-2.548-2.548a1.254 1.254 0 0 0-1.774 0l-.965.965z" />
+        <path d="M16.102 17.93l-2.697 2.607c-.466.467-1.111.662-1.823.662s-1.357-.195-1.824-.662l-4.332-4.363c-.467-.467-.702-1.15-.702-1.863s.235-1.357.702-1.824l4.319-4.38c.467-.467 1.125-.645 1.837-.645s1.357.195 1.823.662l2.697 2.606c.514.515 1.365.497 1.9-.038.535-.536.553-1.387.039-1.901l-2.606-2.697c-1.082-1.082-2.522-1.531-4.04-1.531s-2.958.449-4.04 1.531l-4.319 4.38c-1.082 1.082-1.624 2.615-1.624 4.148s.542 3.065 1.624 4.148l4.332 4.363c1.082 1.082 2.522 1.531 4.04 1.531s2.958-.449 4.04-1.531l2.697-2.607c.514-.514.496-1.365-.039-1.9-.536-.535-1.387-.553-1.9-.039zM20.811 13.01H10.666c-.702 0-1.27.604-1.27 1.346s.568 1.346 1.27 1.346h10.145c.701 0 1.27-.604 1.27-1.346s-.569-1.346-1.27-1.346z" />
       </svg>
     ),
     description: "Solving algorithmic challenges and mastering advanced data structures like dynamic programming and graphs.",
@@ -22,8 +22,8 @@ const profiles = [
     color: 'from-emerald-400 to-teal-500',
     shadow: 'shadow-emerald-500/40',
     icon: (
-      <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6zm4 4h-2v-2h2v2zm0-4h-2V7h2v6z" />
+      <svg className="w-9 h-9 text-white" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M7.781 12.029h4.593v-2.35H7.781c-1.378 0-2.395 1.173-2.395 2.55s1.017 2.55 2.395 2.55h.88v2.33h-.88c-2.613 0-4.726-2.113-4.726-4.725s2.113-4.726 4.726-4.726h3.401v2.35H7.781c-1.378 0-2.395 1.173-2.395 2.55zM16.219 9.679h-4.593v2.35h4.593c1.378 0 2.395-1.173 2.395-2.55s-1.017-2.55-2.395-2.55h-.88V4.599h.88c2.613 0 4.726 2.113 4.726 4.725s-2.113 4.726-4.726 4.726h-3.401v-2.35h3.401c1.378 0 2.395-1.173 2.395-2.55z" />
       </svg>
     ),
     description: "Active contributor and rigorous problem solver. Practicing core computer science fundamentals.",
@@ -31,16 +31,68 @@ const profiles = [
   {
     name: 'InterviewBit',
     url: 'https://www.interviewbit.com/profile/mujtaba-khan_655/',
-    color: 'from-cyan-400 to-blue-500',
+    color: 'from-cyan-400 to-blue-600',
     shadow: 'shadow-cyan-500/40',
     icon: (
-      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+      <svg className="w-9 h-9 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
       </svg>
     ),
     description: "Preparing for top-tier tech interviews through timed, high-pressure algorithmic practice.",
   }
 ];
+
+function ProfileCard({ profile, index, className = '' }: { profile: typeof profiles[0], index: number, className?: string }) {
+  return (
+    <motion.a
+      href={profile.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      initial={{ opacity: 0, y: 40, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.6, delay: index * 0.15, type: 'spring', stiffness: 200, damping: 20 }}
+      whileHover={{ 
+        y: -12, 
+        scale: 1.03,
+        transition: { duration: 0.3, ease: 'easeOut' },
+      }}
+      className={`group relative bg-white/70 backdrop-blur-2xl border border-pink-200/50 rounded-2xl p-7 flex flex-col justify-between cursor-pointer shadow-sm hover:shadow-[0_25px_60px_-15px_rgba(219,39,119,0.15)] transition-shadow duration-500 min-h-[280px] ${className}`}
+    >
+      {/* Hover glow overlay */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-pink-100/0 via-rose-50/0 to-purple-100/0 group-hover:from-pink-100/40 group-hover:via-rose-50/30 group-hover:to-purple-100/30 transition-all duration-500 pointer-events-none" />
+
+      {/* Decorative corner accent */}
+      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-pink-200/30 to-transparent rounded-tr-2xl rounded-bl-[80px] pointer-events-none" />
+
+      <div className="relative z-10 flex-1 flex flex-col items-center text-center">
+        {/* Icon */}
+        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br ${profile.color} ${profile.shadow} mb-5 shadow-lg transform group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-500`}>
+          {profile.icon}
+        </div>
+        
+        {/* Title */}
+        <h3 className="text-2xl font-black text-gray-800 mb-3 group-hover:text-pink-700 transition-colors duration-300">
+          {profile.name}
+        </h3>
+
+        {/* Description */}
+        <p className="text-gray-500 text-sm leading-relaxed mb-6 group-hover:text-gray-600 transition-colors duration-300 flex-1 max-w-sm">
+          {profile.description}
+        </p>
+
+        {/* Link Button */}
+        <div
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 w-full rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 text-white text-sm font-semibold shadow-md shadow-pink-500/20 hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 group-hover:from-pink-600 group-hover:to-rose-600 group/btn mt-auto"
+        >
+          View Profile
+          <svg className="w-4 h-4 opacity-0 -translate-x-2 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </div>
+      </div>
+    </motion.a>
+  );
+}
 
 export default function CompetitiveWindow() {
   return (
@@ -86,65 +138,25 @@ export default function CompetitiveWindow() {
         </div>
       </div>
 
-      {/* Grid */}
-      <div className="flex-1 overflow-y-auto px-8 pb-8" style={{ scrollbarWidth: 'thin', scrollbarColor: '#f9a8d4 transparent' }}>
+      {/* Pyramid Layout */}
+      <div className="flex-1 overflow-y-auto px-4 md:px-8 pb-12 flex flex-col items-center" style={{ scrollbarWidth: 'thin', scrollbarColor: '#f9a8d4 transparent' }}>
         <AnimatePresence mode="wait">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.35 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="w-full max-w-4xl flex flex-col gap-6"
           >
-            {profiles.map((profile, index) => (
-              <motion.a
-                href={profile.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                key={profile.name}
-                initial={{ opacity: 0, y: 40, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-                whileHover={{ 
-                  y: -10, 
-                  scale: 1.02,
-                  transition: { duration: 0.3, ease: 'easeOut' },
-                }}
-                className="group relative bg-white/70 backdrop-blur-2xl border border-pink-200/50 rounded-2xl p-7 flex flex-col justify-between cursor-pointer shadow-sm hover:shadow-[0_25px_60px_-15px_rgba(219,39,119,0.15)] transition-shadow duration-500 min-h-[280px]"
-              >
-                {/* Hover glow overlay */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-pink-100/0 via-rose-50/0 to-purple-100/0 group-hover:from-pink-100/40 group-hover:via-rose-50/30 group-hover:to-purple-100/30 transition-all duration-500 pointer-events-none" />
+            {/* Top Row: LeetCode centered */}
+            <div className="w-full flex justify-center">
+              <ProfileCard profile={profiles[0]} index={0} className="w-full md:w-3/5" />
+            </div>
 
-                {/* Decorative corner accent */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-pink-200/30 to-transparent rounded-tr-2xl rounded-bl-[80px] pointer-events-none" />
-
-                <div className="relative z-10 flex-1 flex flex-col">
-                  {/* Icon */}
-                  <div className={`w-14 h-14 rounded-xl flex items-center justify-center bg-gradient-to-br ${profile.color} ${profile.shadow} mb-5 shadow-lg transform group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500`}>
-                    {profile.icon}
-                  </div>
-                  
-                  {/* Title */}
-                  <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-pink-700 transition-colors duration-300">
-                    {profile.name}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-gray-500 text-sm leading-relaxed mb-6 group-hover:text-gray-600 transition-colors duration-300 flex-1">
-                    {profile.description}
-                  </p>
-
-                  {/* Link Button */}
-                  <div
-                    className="inline-flex self-start items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 text-white text-sm font-semibold shadow-md shadow-pink-500/20 hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 group-hover:from-pink-600 group-hover:to-rose-600 group/btn mt-auto"
-                  >
-                    View Profile
-                    <svg className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                  </div>
-                </div>
-              </motion.a>
-            ))}
+            {/* Bottom Row: GfG and InterviewBit */}
+            <div className="w-full flex flex-col md:flex-row justify-center gap-6">
+              <ProfileCard profile={profiles[1]} index={1} className="w-full md:w-1/2" />
+              <ProfileCard profile={profiles[2]} index={2} className="w-full md:w-1/2" />
+            </div>
           </motion.div>
         </AnimatePresence>
       </div>
