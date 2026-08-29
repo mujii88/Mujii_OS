@@ -10,6 +10,7 @@ import ProjectWindow from '../apps/ProjectWindow';
 import AboutWindow from '../apps/AboutWindow';
 import ContactWindow from '../apps/ContactWindow';
 import SkillsWindow from '../apps/SkillsWindow';
+import CompetitiveWindow from '../apps/CompetitiveWindow';
 
 export default function Desktop() {
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
@@ -17,6 +18,7 @@ export default function Desktop() {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isSkillsOpen, setIsSkillsOpen] = useState(false);
+  const [isCompetitiveOpen, setIsCompetitiveOpen] = useState(false);
   
   const [minimizedWindows, setMinimizedWindows] = useState<string[]>([]);
   
@@ -44,6 +46,7 @@ export default function Desktop() {
   const openAbout = () => handleAppClick('about', setIsAboutOpen);
   const openContact = () => handleAppClick('contact', setIsContactOpen);
   const openSkills = () => handleAppClick('skills', setIsSkillsOpen);
+  const openCompetitive = () => handleAppClick('competitive', setIsCompetitiveOpen);
 
   const closeTerminal = () => {
     setIsTerminalOpen(false);
@@ -68,6 +71,11 @@ export default function Desktop() {
   const closeSkills = () => {
     setIsSkillsOpen(false);
     if (activeWindow === 'skills') setActiveWindow(null);
+  };
+
+  const closeCompetitive = () => {
+    setIsCompetitiveOpen(false);
+    if (activeWindow === 'competitive') setActiveWindow(null);
   };
 
   const bringToFront = (windowName: string) => {
@@ -190,6 +198,17 @@ export default function Desktop() {
           }
         />
         <DesktopIcon
+          name="Coding"
+          onClick={openCompetitive}
+          icon={
+            <div className={`w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-400 to-purple-600 flex items-center justify-center shadow-lg transition-transform hover:-translate-y-2 cursor-pointer border border-white/20 ${activeWindow === 'competitive' ? 'ring-2 ring-white/50' : ''}`}>
+              <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+              </svg>
+            </div>
+          }
+        />
+        <DesktopIcon
           name="About"
           onClick={openAbout}
           icon={
@@ -256,6 +275,21 @@ export default function Desktop() {
             defaultMaximized={true}
           >
             <SkillsWindow />
+          </Window>
+        )}
+
+        {isCompetitiveOpen && (
+          <Window
+            key="competitive"
+            title="Coding Profiles — ~/competitive"
+            onClose={closeCompetitive}
+            onMinimize={() => toggleMinimize('competitive')}
+            isMinimized={minimizedWindows.includes('competitive')}
+            isActive={activeWindow === 'competitive'}
+            onClick={() => bringToFront('competitive')}
+            defaultMaximized={true}
+          >
+            <CompetitiveWindow />
           </Window>
         )}
 
