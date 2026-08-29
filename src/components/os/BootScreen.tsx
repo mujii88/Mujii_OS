@@ -108,7 +108,7 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
       {/* Scanline overlay for cinematic effect */}
       <div className="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(rgba(255,255,255,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] z-50" />
       
-      <div className="flex-1 flex flex-col justify-end whitespace-pre relative z-10">
+      <div className="flex-1 flex flex-col justify-center items-center whitespace-pre relative z-10">
         {/* ASCII Art block */}
         <motion.div 
           className="mb-6 leading-[1.1] text-[6px] sm:text-[10px] md:text-xs"
@@ -122,12 +122,13 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
         </motion.div>
 
         {/* Boot log block */}
-        <div className="space-y-1 h-48">
+        <div className="space-y-1 h-48 w-full flex flex-col items-center">
           {showLogs && (
             <motion.div 
               variants={logContainerVariants}
               initial="hidden"
               animate="visible"
+              className="text-left"
             >
               {bootLines.map((line, i) => (
                 <motion.div key={i} variants={logLineVariants}>{line}</motion.div>
